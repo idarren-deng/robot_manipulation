@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>Blender User</author>
+      <authoring_tool>Blender 2.71.0 commit date:2014-06-25, commit time:18:36, hash:9337574</authoring_tool>
+    </contributor>
+    <created>2016-05-26T22:20:27</created>
+    <modified>2016-05-26T22:20:27</modified>
+    <unit name="meter" meter="1"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  <library_images/>
+  <library_effects>
+    <effect id="Material_001-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <emission>
+              <color sid="emission">0 0 0 1</color>
+            </emission>
+            <ambient>
+              <color sid="ambient">0 0 0 1</color>
+            </ambient>
+            <diffuse>
+              <color sid="diffuse">0.8 0.8 0.8 1</color>
+            </diffuse>
+            <specular>
+              <color sid="specular">0.5 0.5 0.5 1</color>
+            </specular>
+            <shininess>
+              <float sid="shininess">50</float>
+            </shininess>
+            <index_of_refraction>
+              <float sid="index_of_refraction">1</float>
+            </index_of_refraction>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+  <library_materials>
+    <material id="Material_001-material" name="Material_001">
+      <instance_effect url="#Material_001-effect"/>
+    </material>
+  </library_materials>
+  <library_geometries>
+    <geometry id="Camera_Base-mesh" name="Camera Base">
+      <mesh>
+        <source id="Camera_Base-mesh-positions">
+          <float_array id="Camera_Base-mesh-positions-array" count="84">0.5 0.04999995 0.275 0.5 0.04999995 0.225 0.275 0.04999995 0.275 0.275 0.04999995 0.225 0.275 0.04999995 0 0.225 0.04999995 0 0.225 0.04999995 0.225 0 0.04999995 0.225 0 0.04999995 0.275 0.225 0.04999995 0.275 0.225 0.04999995 0.5 0.275 0.04999995 0.5 0.275 0 0 0.275 0 0.225 0.275 0 0.5 0.275 0 0.275 0.225 0 0 0.225 0 0.225 0.225 0 0.5 0.225 0 0.275 0.5 0 0.225 0.5 0 0.275 0 0 0.225 0 0 0.275 0.225 2.025 0.225 0.275 2.025 0.225 0.275 2.025 0.275 0.225 2.025 0.275</float_array>
+          <technique_common>
+            <accessor source="#Camera_Base-mesh-positions-array" count="28" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <source id="Camera_Base-mesh-normals">
+          <float_array id="Camera_Base-mesh-normals-array" count="156">0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 0 1 0 1 0 0 1 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 0 1 0 0 1 0 0 -1 0 0 -1 -1 0 0 -1 0 0 0 0 1 0 0 1 0 0 -1 0 0 -1 0 0 -1 0 0 -1 0 0 1 0 0 1 1 0 0 1 0 0 0 0 -1 0 0 -1 0 0 1 0 0 1 -1 0 0 -1 0 0 1 0 0 1 0 0 0 1 0 0 1 0</float_array>
+          <technique_common>
+            <accessor source="#Camera_Base-mesh-normals-array" count="52" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        <vertices id="Camera_Base-mesh-vertices">
+          <input semantic="POSITION" source="#Camera_Base-mesh-positions"/>
+        </vertices>
+        <polylist material="Material_001-material" count="52">
+          <input semantic="VERTEX" source="#Camera_Base-mesh-vertices" offset="0"/>
+          <input semantic="NORMAL" source="#Camera_Base-mesh-normals" offset="1"/>
+          <vcount>3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 </vcount>
+          <p>0 0 1 0 2 0 2 1 1 1 3 1 4 2 5 2 3 2 3 3 5 3 6 3 7 4 8 4 6 4 6 5 8 5 9 5 10 6 11 6 9 6 9 7 11 7 2 7 12 8 4 8 13 8 13 9 4 9 3 9 11 10 14 10 2 10 2 11 14 11 15 11 5 12 16 12 6 12 6 13 16 13 17 13 18 14 10 14 19 14 19 15 10 15 9 15 20 16 21 16 13 16 13 17 21 17 15 17 22 18 17 18 23 18 23 19 17 19 19 19 14 20 18 20 15 20 15 21 18 21 19 21 15 22 19 22 13 22 13 23 19 23 17 23 13 24 17 24 12 24 12 25 17 25 16 25 10 26 18 26 11 26 11 27 18 27 14 27 16 28 5 28 12 28 12 29 5 29 4 29 23 30 8 30 22 30 22 31 8 31 7 31 9 32 8 32 19 32 19 33 8 33 23 33 17 34 22 34 6 34 6 35 22 35 7 35 3 36 1 36 13 36 13 37 1 37 20 37 15 38 21 38 2 38 2 39 21 39 0 39 0 40 21 40 1 40 1 41 21 41 20 41 6 42 24 42 3 42 3 43 24 43 25 43 2 44 26 44 9 44 9 45 26 45 27 45 9 46 27 46 6 46 6 47 27 47 24 47 3 48 25 48 2 48 2 49 25 49 26 49 24 50 27 50 25 50 25 51 27 51 26 51</p>
+        </polylist>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  <library_controllers/>
+  <library_visual_scenes>
+    <visual_scene id="Scene" name="Scene">
+      <node id="Camera_Base" name="Camera_Base" type="NODE">
+        <matrix sid="transform">1 0 0 -0.25 0 -6.39758e-7 -1 0.25 0 1 -6.39758e-7 0 0 0 0 1</matrix>
+        <instance_geometry url="#Camera_Base-mesh">
+          <bind_material>
+            <technique_common>
+              <instance_material symbol="Material_001-material" target="#Material_001-material"/>
+            </technique_common>
+          </bind_material>
+        </instance_geometry>
+      </node>
+    </visual_scene>
+  </library_visual_scenes>
+  <scene>
+    <instance_visual_scene url="#Scene"/>
+  </scene>
+</COLLADA>

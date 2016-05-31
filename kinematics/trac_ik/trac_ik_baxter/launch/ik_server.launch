@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+  <arg name="timeout" default="0.005" />
+
+  <node name="trac_ik_server" pkg="trac_ik_baxter" type="trac_ik_server" output="screen">
+    <param name="timeout" value="$(arg timeout)"/>
+  </node>
+
+
+</launch>

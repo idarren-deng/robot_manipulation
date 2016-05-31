@@ -1,0 +1,15 @@
+# Endpoint Pose(s) to request Inverse-Kinematics joint solutions for.
+geometry_msgs/PoseStamped[] pose_stamp
+
+# (optional) Joint Angle Seed(s) for IK solver.
+# * specify a JointState seed for each pose_stamp, using name[] and position[]
+sensor_msgs/JointState[] seed_angles
+
+float32 end_tolerance
+uint8 num_steps
+---
+# joints[i]      == joint angle solution for each pose_state[i]
+sensor_msgs/JointState[] joints
+float32[] accepted_tolerance
+bool[] isValid
+

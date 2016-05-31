@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<robot name="asus_xtion" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="PI" value="3.1415926535897931" />
+  <link name="camera_base">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robots_description/meshes/asus_xtion/camera_base.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robots_description/meshes/asus_xtion/camera_base.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="60.86397744"/>
+      <inertia ixx="5.0635929" ixy="0.00103417" ixz="0.80199628" iyy="6.08689388" iyz="0.00105311" izz="4.96191932"/>
+    </inertial>
+  </link>
+  <link name="install_link">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robots_description/meshes/asus_xtion/install_link.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robots_description/meshes/asus_xtion/install_link.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.547767"/>
+      <inertia ixx="0.004641" ixy="0.000159" ixz="0.000242" iyy="0.003295" iyz="-0.001324" izz="0.003415"/>
+    </inertial>
+  </link>
+  <link name="asus_xtion">
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robots_description/meshes/asus_xtion/asus_xtion_pro_live.dae"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://robots_description/meshes/asus_xtion/asus_xtion_pro_live.stl"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <origin rpy="0 0 0" xyz="0 0 0"/>
+      <mass value="0.440171"/>
+      <inertia ixx="0.004006" ixy="0.000230" ixz="0.000002" iyy="0.002800" iyz="0.000029" izz="0.001509"/>
+    </inertial>
+  </link>
+  <joint name="camera_base_fixed" type="fixed">
+    <origin rpy="0 0 0" xyz="1.0 0.0 -0.93"/>
+    <parent link="base"/>
+    <child link="camera_base"/>
+  </joint>
+  <joint name="install_link_fixed" type="fixed">
+    <origin rpy="0 0 0" xyz="-0.35 -0.05 1.5"/>
+    <parent link="camera_base"/>
+    <child link="install_link"/>
+  </joint>
+  <joint name="asus_xtion_fixed" type="fixed">
+    <origin rpy="0 ${PI} ${PI/2}" xyz="-0.0175 0 0.0"/>
+    <parent link="install_link"/>
+    <child link="asus_xtion"/>
+  </joint>
+</robot>
