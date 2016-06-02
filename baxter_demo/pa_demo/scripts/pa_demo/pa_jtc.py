@@ -339,6 +339,16 @@ def main():
     pc.close()
     rospy.sleep(1.0)
 
+    #6. Appraoch 2
+    rospy.loginfo('005 Moving to approach 2 3/7.')
+    arm.move_to_joint_positions(approach2Joints_)
+    rospy.sleep(2)
+
+    #8. Appraoch 0
+    rospy.loginfo('007 Moving to approach 0 0/7.')
+    arm.move_to_joint_positions(approach3Joints_)
+    rospy.sleep(2)
+
 
 
 
@@ -346,4 +356,4 @@ if __name__ == "__main__":
     try:
         main()
     except:
-        rospy.loginfo('pa_jtc_terminated.')
+        rospy.loginfo('pa_jtc_tracIK terminated.')

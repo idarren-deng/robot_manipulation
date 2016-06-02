@@ -49,15 +49,18 @@ def main():
     current_angles = [arm.joint_angle(joint) for joint in arm.joint_names()]
 
     referencePose=arm.endpoint_pose()
-    print referencePose['position']
-    print referencePose['orientation']
+    print(referencePose['position'])
+    print(referencePose['orientation'])
 
     qref=referencePose['orientation']
     rot_mat=PyKDL.Rotation.Quaternion(qref.x,qref.y,qref.z,qref.w)
     rot_goal=rot_mat.GetRPY()
     rot_goal=list(rot_goal)
-    print rot_goal
+    print(rot_goal)
 
+    q_goal=tf.transformations.quaternion_from_euler(0,0,0,axes='sxyz').tolist()
+    q_goal=baxter_interface.limb.Limb.Quaternion(q_goal[0],q_goal[1],q_goal[2],q_goal[3])
+    print(q_goal)
 
 
 if __name__ == "__main__":
