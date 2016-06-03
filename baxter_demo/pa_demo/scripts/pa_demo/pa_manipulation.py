@@ -20,6 +20,8 @@ import threading
 ## Flags
 reference_origin_pose_flag = 1 		# Used to determine whether to used the saved joint angle data
                                     # for the reference origin position (true) or not (false).
+reference_placing_pose_flag = 1 	# Used to determine whether to used the saved joint angle data
+                                    # for the reference placing position (true) or not (false).
 
 class Thread(threading.Thread):
     def __init__(self):
@@ -38,7 +40,7 @@ class Thread(threading.Thread):
             return self._pose
 
 def main():
-    global reference_origin_pose_flag
+    global reference_origin_pose_flag, reference_placing_pose_flag
 
     arg_fmt = argparse.RawDescriptionHelpFormatter # create ArgumentParser object
     parser = argparse.ArgumentParser(formatter_class=arg_fmt,
@@ -76,6 +78,7 @@ def main():
 
     # Create kinematics method
     kin=computerIK()
+    cal_pose=computerApproachPose(limb)
 
     # Get Starting Position
     startPose=arm.endpoint_pose()
@@ -89,13 +92,13 @@ def main():
     if reference_origin_pose_flag:    # Used saved reference origin position
 
         ############################
-        x=  0.5530784970071878
-        y= -0.2985130908215926
-        z= -0.04010050200068163
-        qx=-0.016508868436894742
-        qy= 0.9997994368432059
-        qz= 0.003538136184838253
-        qw= 0.010771487514682758
+        x=  0.5697421207443628
+        y= -0.3757602427005593
+        z= -0.16661352985672628
+        qx=-0.02201441500561172
+        qy= 0.9997420543324004
+        qz=-0.005537153050450577
+        qw= 0.0007281489151126663
         ############################
 
         origin_p=baxter_interface.limb.Limb.Point(x,y,z)
@@ -120,12 +123,13 @@ def main():
     #    Do: pa_localization
     #    require: reference_origin_pose
     #    return:  picking_pose---{'position': picking_p, 'orientation': picking_q}
-
+    ########################################################
     pp_thread=Thread()
     picking_pose_visual=pp_thread.getPose()
+    print(picking_pose_visual)
 
     picking_pose=copy(origin_pose) # refering picking_pose from pa_localization to origin
-    print(picking_pose)
+
     ref_x=copy(picking_pose['position'][0])
     ref_y=copy(picking_pose['position'][1])
     ref_z=copy(picking_pose['position'][2])
@@ -142,43 +146,91 @@ def main():
     picking_p=baxter_interface.limb.Limb.Point(p_x,p_y,p_z)
     picking_q=baxter_interface.limb.Limb.Quaternion(q[0],q[1],q[2],q[3])
     picking_pose={'position': picking_p, 'orientation': picking_q}
-    print(picking_pose)
-    pickingJoints=kin.calIK_PY_KDL(limb,picking_pose)
-
-    ########################################################
 
     #--------------- Picking Process -----------------------
     # Calculate ApproachPose
-    cal_pose=computerApproachPose(limb,startPose,picking_pose)
-    approach_J_1,approach_J_2=cal_pose.get_approach_joints_2()
+    approach_J_1,approach_J_2,pickingJoints=cal_pose.get_approach_joints_2(picking_pose)
+
+    print(arm.endpoint_pose())
 
     rospy.loginfo('Start picking...')
     arm.move_to_joint_positions(approach_J_1)
     rospy.sleep(2.0)
+    print(arm.endpoint_pose())
     arm.move_to_joint_positions(approach_J_2)
     rospy.sleep(2.0)
+    print(arm.endpoint_pose())
     arm.move_to_joint_positions(pickingJoints)
     rospy.sleep(2.0)
+    print(arm.endpoint_pose())
+
     # close gripper
     ha.close()
     rospy.sleep(2.0)
+
+    rospy.loginfo('Lift up...')
     arm.move_to_joint_positions(approach_J_2)
     rospy.sleep(2.0)
+    arm.move_to_joint_positions(approach_J_1)
+    rospy.sleep(2.0)
 
+    #--------------- Set the reference placing positions -----------------------
+    if reference_placing_pose_flag:    # Used saved reference origin position
 
+        ############################
+        x=  0.5697421207443628
+        y= -0.3757602427005593
+        z= -0.16661352985672628
+        qx=-0.02201441500561172
+        qy= 0.9997420543324004
+        qz=-0.005537153050450577
+        qw= 0.0007281489151126663
+        ############################
 
+        placing_p=baxter_interface.limb.Limb.Point(x,y,z)
+        placing_q=baxter_interface.limb.Limb.Quaternion(qx,qy,qz,qw)
+        placing_pose={'position':placing_p, 'orientation':placing_q}
 
+    else:    # Use reference placing position from manual teleoperation
+        rospy.logwarn('Be careful! Using new reference placing postion.\n Usage: Open a new terminal and use keyboard teleoperation: '
+                      'roslaunch baxter_end_effector_control end_effector_control.launch keyboard:=true \n')
+        key=raw_input('When finished, pres any key...')
+        rospy.loginfo('New reference placing position recorded')
+        placing_pose=arm.endpoint_pose()
+        reference_placing_pose_flag=1
 
+        # Back to home position
+        rospy.loginfo('I will move back to home posotion, and open the gripper...')
+        rh.paHome_rightArm()
+        ha.open()
+        rospy.sleep(1.0)
 
+    #--------------- Placing Process -----------------------
+    # Calculate ApproachPose
+    approach_J_1,approach_J_2,placingJoints=cal_pose.get_approach_joints_2(placing_pose)
 
+    print(arm.endpoint_pose())
 
+    rospy.loginfo('Start placing...')
+    arm.move_to_joint_positions(approach_J_1)
+    rospy.sleep(2.0)
+    print(arm.endpoint_pose())
+    arm.move_to_joint_positions(approach_J_2)
+    rospy.sleep(2.0)
+    print(arm.endpoint_pose())
+    arm.move_to_joint_positions(placingJoints)
+    rospy.sleep(2.0)
+    print(arm.endpoint_pose())
 
+    # open gripper
+    ha.open()
+    rospy.sleep(2.0)
 
-
-
-
-
-
+    rospy.loginfo('Release and leave...')
+    arm.move_to_joint_positions(approach_J_2)
+    rospy.sleep(2.0)
+    arm.move_to_joint_positions(approach_J_1)
+    rospy.sleep(2.0)
 
 if __name__ == "__main__":
     rospy.init_node("pa_manipulation")

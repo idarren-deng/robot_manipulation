@@ -42,12 +42,9 @@ class visual_localization:
           box=cv2.boxPoints(rect)
       box=np.int0(box)
 
-      self.pick_location.x=rect[0][1]/23.0*25.0/1000.0
-      self.pick_location.y=rect[0][0]/23.0*25.0/1000.0
-
-      # self.pick_location.angle= math.radians(rect[2])
-      l1=(box[0][0]-box[1][0])*(box[0][0]-box[1][0])+(box[0][1]-box[1][1])*(box[0][1]-box[1][1])
-      l2=(box[0][0]-box[2][0])*(box[0][0]-box[2][0])+(box[0][1]-box[2][1])*(box[0][1]-box[2][1])
+      self.pick_location.x=rect[0][0]/23.0*25.0
+      self.pick_location.y=rect[0][1]/23.0*25.0
+      self.pick_location.angle=rect[2]
 
       cv2.drawContours(img_roi,c_max,-1,(255,0,0))
       cv2.drawContours(img_roi,[box],0,(0,0,255),1)

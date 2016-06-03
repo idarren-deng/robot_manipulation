@@ -74,25 +74,21 @@ class computerIK(object):
         return ikJoints
 
 class computerApproachPose(object):
-    def __init__(self,limb,start_pose,target_pose):
+    def __init__(self,limb):
         self._limb=limb
-        self._start=start_pose
-        self._target=target_pose
 
-    def get_approach_joints_2(self):  # with two approachJoints return
+    def get_approach_joints_2(self,target_pose):  # with two approachJoints return
         # approach #1
-        approach_pose_1=copy(self._target)
-        _x=copy(self._target['position'][0])
-        _y=copy(self._target['position'][1])
-        _z=copy(self._target['position'][2])
+        approach_pose_1=copy(target_pose)
+        _x=copy(target_pose['position'][0])
+        _y=copy(target_pose['position'][1])
+        _z=copy(target_pose['position'][2])
         _z=_z+0.05
         approach_position=baxter_interface.limb.Limb.Point(_x,_y,_z)
         approach_pose_1['position']=copy(approach_position)
         # approach #2
-        approach_pose_2=copy(self._target)
-        _x=copy(self._target['position'][0])
-        _y=copy(self._target['position'][1])
-        _z=copy(self._target['position'][2])
+        approach_pose_2=copy(target_pose)
+        _z=copy(target_pose['position'][2])
         _z=_z+0.01
         approach_position=baxter_interface.limb.Limb.Point(_x,_y,_z)
         approach_pose_2['position']=copy(approach_position)
@@ -100,8 +96,9 @@ class computerApproachPose(object):
         ik_solver=computerIK()
         approach_joints_1=ik_solver.calIK_PY_KDL(self._limb,approach_pose_1)
         approach_joints_2=ik_solver.calIK_PY_KDL(self._limb,approach_pose_2)
+        target_joints=ik_solver.calIK_PY_KDL(self._limb,target_pose)
 
-        return approach_joints_1,approach_joints_2
+        return approach_joints_1,approach_joints_2,target_joints
 
 
 

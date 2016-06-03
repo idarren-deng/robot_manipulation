@@ -34,7 +34,7 @@
   <!--node name="trac_ik_test" pkg="baxter_end_effector_control" type="end_effector_trac_ik_solver" output="screen" respawn="true"/-->
 
   <!-- PA_State Machine w/ topics remapped to match trac_IK_test-->
-  <node name="pa_jtc" pkg="pa_demo" type="pa_jtc_tracIK.py" args="-l $(arg gripper)" launch-prefix="$(arg pdb_arg)" output="screen">
+  <node name="pa_manipulation" pkg="pa_demo" type="manipulation.py" args="-l $(arg gripper)" launch-prefix="$(arg pdb_arg)" output="screen">
     <remap from="joints" to="end_effector_command_solution"/>
     <remap from="pose"   to="end_effector_command_position"/>
 
