@@ -60,8 +60,8 @@ def main():
     qz=-0.005537153050450577
     qw= 0.0007281489151126663
     ############################
-    for i in range(0,10):
-        for j in range(0,10):
+    for i in range(0,5):
+        for j in range(0,5):
             x=x+0.025*i
             y=y+0.025*j
             ref_p=baxter_interface.limb.Limb.Point(x,y,z)

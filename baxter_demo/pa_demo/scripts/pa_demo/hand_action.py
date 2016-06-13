@@ -32,11 +32,15 @@ class GripperClient(object):
         self._client.send_goal(self._goal)
 
     def open(self):
-        self.command(position=100.0, effort=0.0) #100% means open
+        self.command(position=100, effort=0.0) #100% means open
         self.wait()
 
     def close(self):
-        self.command(15,0) # Percentages of 15-35% seem to be working best.
+        self.command(position=15, effort=0.0) # Percentages of 15-35% seem to be working best.
+        self.wait()
+
+    def setPos(self,value):
+        self.command(position=value,effort=0)
         self.wait()
 
     def stop(self):
