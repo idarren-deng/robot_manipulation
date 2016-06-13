@@ -1,0 +1,2 @@
+- setup-file:
+    local-name: /home/darren/baxter_ws/src/birl_vision/linemod/cv_bridge3/build/devel/setup.sh

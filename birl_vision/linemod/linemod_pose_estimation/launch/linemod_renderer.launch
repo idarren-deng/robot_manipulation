@@ -1,0 +1,15 @@
+<launch>
+  <arg name="camera_focal_length_x" default="518.377983" />
+  <arg name="camera_focal_length_y" default="519.421239" />
+  <arg name="model_STL_file_path" default="$(find linemod_pose_estimation)/config/stl/box_male_sw.stl" />
+  <arg name="linemod_template_output_path" default="$(find linemod_pose_estimation)/config/data/box_male_sw_linemod_templates.yml" />
+  <arg name="linemod_renderer_params_output_path" default="$(find linemod_pose_estimation)/config/data/box_male_sw_linemod_renderer_params.yml" />
+
+  <node name="linemod_renderer_node" pkg="linemod_pose_estimation" type="linemod_renderer_node" output="screen" respawn="false" args="$(arg camera_focal_length_x) 
+                      $(arg camera_focal_length_x) 
+                      $(arg model_STL_file_path) 
+                      $(arg linemod_template_output_path) 
+                      $(arg linemod_renderer_params_output_path)"
+  />
+
+</launch>

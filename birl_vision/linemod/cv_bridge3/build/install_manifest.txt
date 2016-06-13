@@ -1,0 +1,15 @@
+/usr/local/_setup_util.py
+/usr/local/env.sh
+/usr/local/setup.bash
+/usr/local/setup.sh
+/usr/local/setup.zsh
+/usr/local/.rosinstall
+/usr/local/lib/pkgconfig/cv_bridge3.pc
+/usr/local/share/cv_bridge3/cmake/cv_bridge3Config.cmake
+/usr/local/share/cv_bridge3/cmake/cv_bridge3Config-version.cmake
+/usr/local/share/cv_bridge3/package.xml
+/usr/local/include/cv_bridge3/cv_bridge/rgb_colors.h
+/usr/local/include/cv_bridge3/cv_bridge/cv_bridge.h
+/usr/local/lib/python2.7/dist-packages/cv_bridge3/boost/__init__.py
+/usr/local/lib/libcv_bridge3.so
+/usr/local/lib/python2.7/dist-packages/cv_bridge3/boost/cv_bridge3_boost.so

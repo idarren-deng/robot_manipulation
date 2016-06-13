@@ -1,0 +1,1 @@
+/usr/bin/c++  -fPIC    -shared -Wl,-soname,libgtest.so -o libgtest.so CMakeFiles/gtest.dir/src/gtest-all.cc.o  -L/home/darren/baxter_ws/src/birl_vision/linemod/cv_bridge3/build/gtest/src -lpthread -Wl,-rpath,/home/darren/baxter_ws/src/birl_vision/linemod/cv_bridge3/build/gtest/src 
